@@ -31,3 +31,6 @@ pids
 node_modules
 npm-debug.log
 temp/
+
+# Distribution directory
+dist

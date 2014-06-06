@@ -3,6 +3,33 @@
 
 Provides endpoints to manage users and challenges.
 
+## Compiling
+
+ChallengeMe Backend uses [Gulp](http://gulpjs.com) to run build tasks. Our gulpfile
+is written in CoffeeScript and several plugins are required to run
+the tasks.
+
+### Installing Gulp
+
+Gulp requires a global installation to run the tasks, to install it
+run `npm install -g gulp`
+
+### Installing Dependencies
+
+ChallengeMe Backend depends on several packages; additionally it
+requires some Gulp packages to run build tasks. To install all the
+required packages run `npm install` from the root directory.
+
+### Gulp Tasks
+
+The following tasks can be run from Gulp
+
+- *lint*: Lints the CoffeeScript files
+- *build*: Lints and compiles the CoffeeScript files
+- *clean*: Removes build artifacts
+- *watch*: Sets a watch task to lint and compile CoffeeScript files
+- *default*: Lints and compiles the CoffeeScript files
+
 ## Authors
 
 [Albin Arias](https://github.com/alariju)<br>
