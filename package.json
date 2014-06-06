@@ -1,0 +1,14 @@
+{
+  "name": "ChallengeMe-Backend",
+  "version": "0.0.0",
+  "description": "Backend for the ChallengeMe game",
+  "author": "Vodkasoft",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vodkasoft/ChallengeMe-Backend.git"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/vodkasoft/ChallengeMe-Backend/blob/master/LICENSE"
+  }
+}
