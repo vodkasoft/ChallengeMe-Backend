@@ -12,6 +12,7 @@ SRC = 'src'
 
 # Soruces
 coffeeSources = ['src/*.coffee']
+testSources = 'test/**/*.coffee'
 
 # Lint
 gulp.task 'lint', ->
@@ -22,7 +23,7 @@ gulp.task 'lint', ->
 # Test
 gulp.task 'test', ->
   require 'coffee-script/register'
-  gulp.src 'test/**/*.coffee'
+  gulp.src testSources
   .pipe mocha()
 
 # Build
