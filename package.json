@@ -23,5 +23,8 @@
     "gulp-util": "^2.2.16",
     "mocha": "^1.20.1",
     "node-aes-256-gcm": "^0.1.2"
+  },
+  "dependencies": {
+    "pbkdf2-sha256": "^0.1.1"
   }
 }
