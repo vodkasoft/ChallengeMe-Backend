@@ -14,23 +14,33 @@ errorPrng = (size, callback) ->
   callback new Error 'Intentional mock error'
 
 # Setup
-key = 'key'
-salt = 'salt'
-cipher = new CipherAes256Gcm key, salt,  mockPrng
+key = new Buffer (0 for [0...CipherAes256Gcm.KEY_SIZE])
+cipher = new CipherAes256Gcm.Cipher key, mockPrng
 
 # Example data
 data =
   text: 'example'
 
 # Encryption for example data
-enc = 'AAAAAAAAAAAAAAAAhxphcwBZRHWRpj2QiZCQRQ57kpfhXn/VV6/u0470OpE+Nw=='
-encHex = '000000000000000000000000871a61730059447591a63d90899090450e7b9297e15e7fd557afeed38ef43a913e37'
+enc = 'AAAAAAAAAAAAAAAAtYU0WDUUSVQlK72y14PxfVAdDenhok+IUh6qXVvsJ2CWDw=='
+encHex = '000000000000000000000000b585345835144954252bbdb2d783f17d501d0de9e1a24f88521eaa5d5bec2760960f'
 
 # Module description
 describe 'Cipher AES-256-GCM', ->
 
+  it 'should check that key is a Buffer', ->
+    errorConstructor = ->
+      new CipherAes256Gcm.Cipher 'key', mockPrng
+    errorConstructor.should.throw TypeError
+
+  it 'should check that the key size is correct', ->
+    errorConstructor = ->
+      fakeKey = new Buffer (0 for [0...CipherAes256Gcm.KEY_SIZE - 1])
+      new CipherAes256Gcm.Cipher fakeKey, mockPrng
+    errorConstructor.should.throw Error, /size/
+
   it 'should catch PRNG errors', ->
-    errorCipher = new CipherAes256Gcm key, salt, errorPrng
+    errorCipher = new CipherAes256Gcm.Cipher key, errorPrng
     errorCipher.encryptData new Buffer([]), null, (error, encryptedData) ->
       should.exist error
       error.should.be.an.instanceof Error

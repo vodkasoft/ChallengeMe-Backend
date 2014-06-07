@@ -14,9 +14,6 @@ KEY_SIZE = 32
 # Default encoding to use when none is specified
 DEFAULT_ENCODING = 'base64'
 
-# Iterations for PBKDF2
-KEY_ITERATIONS = 10000
-
 # Joins segments of encrypted data into a single buffer
 # @param {Buffer} iv Initialization vector used to encrypt the data
 # @param {Buffer} cipherText Resulting ciphertext form the encryption
@@ -38,13 +35,16 @@ splitEncryptedData = (encryptedData) ->
 class CipherAes256Gcm
 
   # Creates a CipherAes256Gcm
-  # @param {string} key Base for the encryption and decryption key
-  # @param {string} salt Salt used to strengthen the key
+  # @param {Buffer} key Encryption and decryption key
   # @param {Function} prng Function that creates pseudo-random buffers, must
   #                        receive a number and a callback, can use
   #                        crypto.randomBytes and crypto.pseudoRandomBytes
-  constructor: (key, salt, @prng) ->
-    @key = crypto.pbkdf2Sync(key, salt, KEY_ITERATIONS, KEY_SIZE)
+  constructor: (key, @prng) ->
+    if not Buffer.isBuffer key
+      throw new TypeError 'Key must be a buffer'
+    if key.length != KEY_SIZE
+      throw new Error 'Key size must be of #{KEY_SIZE} bytes'
+    @key = key
 
   # Encrypts data using a key
   # @param {Object} data Object to be encrypted
@@ -75,4 +75,5 @@ class CipherAes256Gcm
     JSON.parse decryption.plaintext
 
 # Exports
-module.exports = CipherAes256Gcm
+module.exports.Cipher = CipherAes256Gcm
+module.exports.KEY_SIZE = KEY_SIZE
