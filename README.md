@@ -25,6 +25,7 @@ required packages run `npm install` from the root directory.
 The following tasks can be run from Gulp
 
 - *lint*: Lints the CoffeeScript files
+- *test*: Runs the Mocha test suite
 - *build*: Lints and compiles the CoffeeScript files
 - *clean*: Removes build artifacts
 - *watch*: Sets a watch task to lint and compile CoffeeScript files
