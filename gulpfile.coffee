@@ -27,7 +27,7 @@ gulp.task 'test', ->
   .pipe mocha()
 
 # Build
-gulp.task 'build', ['lint'], ->
+gulp.task 'build', ['lint', 'test'], ->
   gulp.src coffeeSources, base: SRC
   .pipe plumber()
   .pipe coffee bare: true
@@ -39,8 +39,8 @@ gulp.task 'clean', ->
   .pipe clean()
 
 # Watch
-gulp.task 'watch', ['lint', 'build'], ->
-  gulp.watch [coffeeSources], ['lint', 'build']
+gulp.task 'watch', ['lint', 'test', 'build'], ->
+  gulp.watch [coffeeSources], ['lint', 'test', 'build']
 
 # Defualt
-gulp.task 'default', ['lint', 'build']
+gulp.task 'default', ['lint', 'test', 'build']
