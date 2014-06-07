@@ -4,6 +4,7 @@ coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
 clean = require 'gulp-clean'
 plumber = require 'gulp-plumber'
+mocha = require 'gulp-mocha'
 
 # Directories
 DIST = 'dist'
@@ -17,6 +18,12 @@ gulp.task 'lint', ->
   gulp.src coffeeSources
   .pipe plumber()
   .pipe coffeelint()
+
+# Test
+gulp.task 'test', ->
+  require 'coffee-script/register'
+  gulp.src 'test/**/*.coffee'
+  .pipe mocha()
 
 # Build
 gulp.task 'build', ['lint'], ->
