@@ -3,7 +3,7 @@ chai = require 'chai'
 should = chai.should()
 
 # Module to test
-CipherAes256Gcm = require '../../src/access-token/cipher-aes-256-gcm'
+cipherAes256Gcm = require '../../src/access-token/cipher-aes-256-gcm'
 
 # Mock pseudo-random number generator
 mockPrng = (size, callback) ->
@@ -14,8 +14,8 @@ errorPrng = (size, callback) ->
   callback new Error 'Intentional mock error'
 
 # Setup
-key = new Buffer (0 for [0...CipherAes256Gcm.KEY_SIZE])
-cipher = new CipherAes256Gcm.Cipher key, mockPrng
+key = new Buffer (0 for [0...cipherAes256Gcm.KEY_SIZE])
+cipher = new cipherAes256Gcm.Cipher key, mockPrng
 
 # Example data
 data =
@@ -30,17 +30,17 @@ describe 'Cipher AES-256-GCM', ->
 
   it 'should check that key is a Buffer', ->
     errorConstructor = ->
-      new CipherAes256Gcm.Cipher 'key', mockPrng
+      new cipherAes256Gcm.Cipher 'key', mockPrng
     errorConstructor.should.throw TypeError
 
   it 'should check that the key size is correct', ->
     errorConstructor = ->
-      fakeKey = new Buffer (0 for [0...CipherAes256Gcm.KEY_SIZE - 1])
-      new CipherAes256Gcm.Cipher fakeKey, mockPrng
+      fakeKey = new Buffer (0 for [0...cipherAes256Gcm.KEY_SIZE - 1])
+      new cipherAes256Gcm.Cipher fakeKey, mockPrng
     errorConstructor.should.throw Error, /size/
 
   it 'should catch PRNG errors', ->
-    errorCipher = new CipherAes256Gcm.Cipher key, errorPrng
+    errorCipher = new cipherAes256Gcm.Cipher key, errorPrng
     errorCipher.encryptData new Buffer([]), null, (error, encryptedData) ->
       should.exist error
       error.should.be.an.instanceof Error
