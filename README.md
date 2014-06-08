@@ -5,14 +5,19 @@ Provides endpoints to manage users and challenges.
 
 ## Compiling
 
-ChallengeMe Backend uses [Gulp](http://gulpjs.com) to run build tasks. Our gulpfile
-is written in CoffeeScript and several plugins are required to run
-the tasks.
+ChallengeMe Backend uses [Gulp](http://gulpjs.com) to run build tasks. Our
+gulpfile is written in [CoffeeScript](http://coffeescript.org) and several
+plugins are required to run the tasks.
 
 ### Installing Gulp
 
-Gulp requires a global installation to run the tasks, to install it
-run `npm install -g gulp`
+Gulp requires a global installation to run the tasks, to install Gulp run
+`npm install -g gulp`
+
+### Installing CoffeeScript
+
+CoffeeScript requires a global installation to compile CoffeeScript files into
+JavaScript, to install CoffeeScript run `npm install -g coffee-script`
 
 ### Installing Dependencies
 
