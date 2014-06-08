@@ -12,7 +12,7 @@ SRC = 'src'
 TEST = 'test'
 
 # Build soruces
-coffeeSources = [
+nodeCoffeeScriptSources = [
   "#{SRC}/*.coffee"
   "#{SRC}/access-token/**/*.coffee"
 ]
@@ -22,7 +22,7 @@ testSources = "#{TEST}/**/*.coffee"
 
 # Lint
 gulp.task 'lint', ->
-  gulp.src coffeeSources
+  gulp.src nodeCoffeeScriptSources
   .pipe plumber()
   .pipe coffeelint()
 
@@ -34,7 +34,7 @@ gulp.task 'test', ->
 
 # Build
 gulp.task 'build', ['lint', 'test'], ->
-  gulp.src coffeeSources, base: SRC
+  gulp.src nodeCoffeeScriptSources, base: SRC
   .pipe plumber()
   .pipe coffee bare: true
   .pipe gulp.dest "#{DIST}/"
@@ -46,7 +46,7 @@ gulp.task 'clean', ->
 
 # Watch
 gulp.task 'watch', ['lint', 'test', 'build'], ->
-  gulp.watch [coffeeSources], ['lint', 'test', 'build']
+  gulp.watch [nodeCoffeeScriptSources], ['lint', 'test', 'build']
 
 # Defualt
 gulp.task 'default', ['lint', 'test', 'build']
