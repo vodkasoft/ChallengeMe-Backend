@@ -42,7 +42,7 @@ gulp.task 'build', ['lint', 'test'], ->
 
 # Clean
 gulp.task 'clean', ->
-  gulp.src 'dist/', read: false
+  gulp.src "#{DIST}/", read: false
   .pipe clean()
 
 # Watch
