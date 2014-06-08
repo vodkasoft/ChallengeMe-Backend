@@ -11,7 +11,7 @@ DIST = 'dist'
 SRC = 'src'
 
 # Soruces
-coffeeSources = ['src/*.coffee']
+coffeeSources = ['src/*.coffee', 'src/access-token/*.coffee']
 testSources = 'test/**/*.coffee'
 
 # Lint
