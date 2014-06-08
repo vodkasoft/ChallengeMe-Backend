@@ -9,10 +9,16 @@ mocha = require 'gulp-mocha'
 # Directories
 DIST = 'dist'
 SRC = 'src'
+TEST = 'test'
 
-# Soruces
-coffeeSources = ['src/*.coffee', 'src/access-token/*.coffee']
-testSources = 'test/**/*.coffee'
+# Build soruces
+coffeeSources = [
+  "#{SRC}/*.coffee"
+  "#{SRC}/access-token/**/*.coffee"
+]
+
+# Test sources
+testSources = "#{TEST}/**/*.coffee"
 
 # Lint
 gulp.task 'lint', ->
