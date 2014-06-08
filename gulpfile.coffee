@@ -15,6 +15,7 @@ TEST = 'test'
 nodeCoffeeScriptSources = [
   "#{SRC}/*.coffee"
   "#{SRC}/access-token/**/*.coffee"
+  "#{SRC}/facebook-auth/**/*.coffee"
 ]
 
 # Test sources
