@@ -15,6 +15,7 @@ TEST = 'test'
 nodeSources = [
   "#{SRC}/*.coffee"
   "#{SRC}/access-token/**/*.coffee"
+  "#{SRC}/dynamodb-datastore/**/*.coffee"
   "#{SRC}/facebook-auth/**/*.coffee"
 ]
 
