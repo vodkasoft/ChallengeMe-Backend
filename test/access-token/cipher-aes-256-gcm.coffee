@@ -25,7 +25,10 @@ data =
 enc = 'AAAAAAAAAAAAAAAAtYU0WDUUSVQlK72y14PxfVAdDenhok+IUh6qXVvsJ2CWDw=='
 encHex = '000000000000000000000000b585345835144954252bbdb2d783f17d501d0de9e1a24f88521eaa5d5bec2760960f'
 
-# Module description
+################################################################################
+# Cipher AES-256-GCM                                                           #
+################################################################################
+
 describe 'Cipher AES-256-GCM', ->
 
   it 'should check that key is a Buffer', ->

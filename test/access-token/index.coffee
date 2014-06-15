@@ -14,7 +14,10 @@ sampleDataAccessToken = 'dXCPggyHTUo3Xw1vUD+tTgDjhzERwCWZ12BZ/k3/srfaAa8IzAwY4bD
 invalidToken = 'cXCPggyHTUo3Xw1vUD+tTgDjhzERwCWZ12BZ/k3/srfaAa8IzAwY4bDLQiXZi2vMXtRGG83SoKppCtOOvmQgcfT2iKKpDhPXjhr38sea2sb6'
 expiredToken = 'Q28qG+TT/1TK1MwLTe1x7lYoxd/QWpqj84+sB/oSRyTZt6lH9GPcbL1lkkBeNeoieBAwUjh0rtgWykey3xVbiTe3l7lQk2+4+5FZ89MYnC4='
 
-# Module description
+################################################################################
+# Token Manager                                                                #
+################################################################################
+
 describe 'Token Manager', ->
 
   it 'should create an access token', (done) ->

@@ -47,7 +47,10 @@ wrongStatusCodeRequestHandlerWithoutError =
   get: (url, handler) ->
     handler null, {statusCode: 400}, '{}'
 
-# Module description
+################################################################################
+# Facebook Auth                                                                #
+################################################################################
+
 describe 'facebook-auth', ->
 
   it 'should get the Facebook id form a valid response', (done) ->
