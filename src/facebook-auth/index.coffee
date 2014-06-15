@@ -2,7 +2,7 @@
 crypto = require 'crypto'
 
 # URL to access Facebook's Graph API
-GRAPH_URL = 'https://graph.facebook.com'
+GRAPH_URL = 'https://graph.facebook.com/v2.0'
 
 # Hashing algorithm used to generate HMAC for the application secret proof
 APP_SECRET_PROOF_HMAC_ALGORITHM = 'sha256'
