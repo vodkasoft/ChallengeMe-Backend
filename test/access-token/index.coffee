@@ -17,11 +17,12 @@ expiredToken = 'Q28qG+TT/1TK1MwLTe1x7lYoxd/QWpqj84+sB/oSRyTZt6lH9GPcbL1lkkBeNeoi
 # Module description
 describe 'Token Manager', ->
 
-  it 'should create an access token', ->
+  it 'should create an access token', (done) ->
     testManager.createAccessToken sampleData, 0, (error, accessToken) ->
       should.not.exist error
       should.exist accessToken
       accessToken.should.be.a 'string'
+      done()
 
   it 'should get data from an acess token', ->
     data = testManager.getAccessTokenData sampleDataAccessToken

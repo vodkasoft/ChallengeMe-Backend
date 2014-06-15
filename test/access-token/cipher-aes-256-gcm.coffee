@@ -39,25 +39,28 @@ describe 'Cipher AES-256-GCM', ->
       new cipherAes256Gcm.Cipher fakeKey, mockPrng
     errorConstructor.should.throw Error, /size/
 
-  it 'should catch PRNG errors', ->
+  it 'should catch PRNG errors', (done) ->
     errorCipher = new cipherAes256Gcm.Cipher key, errorPrng
     errorCipher.encryptData new Buffer([]), null, (error, encryptedData) ->
       should.exist error
       error.should.be.an.instanceof Error
       should.not.exist encryptedData
+      done()
 
-  it 'should encrypt with default encoding', ->
+  it 'should encrypt with default encoding', (done) ->
     cipher.encryptData data, null, (error, encryptedData) ->
       should.not.exist error
       should.exist encryptedData
       encryptedData.should.equal enc
+      done()
 
-  it 'should encrypt with specified encoding', ->
+  it 'should encrypt with specified encoding', (done) ->
     cipher.encryptData data, 'hex', (error, encryptedData) ->
       should.not.exist error
       should.exist encryptedData
       encryptedData.should.be.a 'string'
       encryptedData.should.equal encHex
+      done()
 
   it 'should decrypt with default encoding', ->
     data = cipher.decryptData enc, null

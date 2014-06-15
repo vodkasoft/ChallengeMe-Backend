@@ -50,47 +50,53 @@ wrongStatusCodeRequestHandlerWithoutError =
 # Module description
 describe 'facebook-auth', ->
 
-  it 'should get the Facebook id form a valid response', ->
+  it 'should get the Facebook id form a valid response', (done) ->
     handler = validRequestHandler
     facebookAuthProvider = new FacebookAuthProvider handler
     facebookAuthProvider.getUserId 'accessToken', (error, id) ->
       should.not.exist error
       should.exist id
       id.should.equal sampleId
+      done()
 
-  it 'should send appsecret_proof if application secret is provided', ->
+  it 'should send appsecret_proof if application secret is provided', (done) ->
     handler = requestHandlerWithAppSecretProof
     facebookAuthProvider = new FacebookAuthProvider handler, hmacTest.key
     facebookAuthProvider.getUserId hmacTest.data, (error, id) ->
       should.not.exist error
       should.exist id
       id.should.equal sampleId
+      done()
 
-  it 'should catch errors in the request', ->
+  it 'should catch errors in the request', (done) ->
     handler = errorRequestHandler
     facebookAuthProvider = new FacebookAuthProvider handler
     facebookAuthProvider.getUserId 'accessToken', (error, id) ->
       should.exist error
       should.not.exist id
+      done()
 
-  it 'should send an error when invalid data is received', ->
+  it 'should send an error when invalid data is received', (done) ->
     handler = invalidDataRequestHandler
     facebookAuthProvider = new FacebookAuthProvider handler
     facebookAuthProvider.getUserId 'accessToken', (error, id) ->
       should.exist error
       should.not.exist id
+      done()
 
-  it 'should send status code error if exists', ->
+  it 'should send status code error if exists', (done) ->
     handler = wrongStatusCodeRequestHandlerWithError
     facebookAuthProvider = new FacebookAuthProvider handler
     facebookAuthProvider.getUserId 'accessToken', (error, id) ->
       should.exist error
       error.message.should.equal 'Mock Error'
       should.not.exist id
+      done()
 
-  it 'should send error if status code error does not have an error', ->
+  it 'should send error if status code error does not have an error', (done) ->
     handler = wrongStatusCodeRequestHandlerWithoutError
     facebookAuthProvider = new FacebookAuthProvider handler
     facebookAuthProvider.getUserId 'accessToken', (error, id) ->
       should.exist error
       should.not.exist id
+      done()
