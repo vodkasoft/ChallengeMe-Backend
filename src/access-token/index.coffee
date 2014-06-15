@@ -32,7 +32,7 @@ class AccessTokenManager
   # Verifies an access token and retrieves it's data, throws an {@code Error} if
   # the token is invalid or has already expired
   # @param {String} token Encrypted access token
-  # @return {Object} The data that was embedded in the access token
+  # @returns {Object} The data that was embedded in the access token
   getAccessTokenData: (accessToken) ->
     accessToken = @cipher.decryptData accessToken, ENCODING
     if not accessToken
