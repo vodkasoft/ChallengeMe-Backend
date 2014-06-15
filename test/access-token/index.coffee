@@ -3,7 +3,7 @@ chai = require 'chai'
 should = chai.should()
 
 # Module to test
-AccessTokenManager = require '../../src/access-token/index'
+AccessTokenManager = require '../../src/access-token'
 
 # Set up
 testManager = new AccessTokenManager 'key', 'salt'
