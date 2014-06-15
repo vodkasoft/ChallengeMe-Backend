@@ -3,8 +3,9 @@ chai = require 'chai'
 should = chai.should()
 
 # Mocks
-{ValidModel} = require './mock-model'
-{ValidConnection, ErrorConnection} = require './mock-connection'
+DynamoDbModel = require '../../src/dynamodb-datastore/model'
+{ ErrorModel} = require './mock-model'
+Mocks = require './mock-connection'
 Data = require './mock-data'
 
 # Module to test
@@ -18,6 +19,11 @@ response =
       { Id: {N: '2'}, FirstName: {S: 'Jane'}, LastName: {S: 'Doe'}}
       { Id: {N: '3'}, FirstName: {S: 'John'}, LastName: {S: 'Black'}}
   ]
+
+# Valid model
+{tableName, keys} = Data.definition
+connection = Mocks.ValidConnection response
+ValidModel = DynamoDbModel.extend connection, tableName, keys
 
 ################################################################################
 # DynamoDb Query                                                               #
@@ -259,7 +265,7 @@ describe 'DynamoDB Query', ->
 
     it 'should construct a Model item from the data retrieved', (done) ->
       query = new DynamoDbQuery ValidModel
-      query.find new ValidConnection(response), (error, items) ->
+      query.find (error, items) ->
         # console.log 'Item: ', items[0]
         should.not.exist error
         should.exist items
@@ -270,7 +276,7 @@ describe 'DynamoDB Query', ->
 
     it 'should not mark the constructed Model as new', (done) ->
       query = new DynamoDbQuery ValidModel
-      query.find new ValidConnection(response), (error, items) ->
+      query.find (error, items) ->
         should.not.exist error
         should.exist items
         isNew = items[0].isNew()
@@ -279,7 +285,7 @@ describe 'DynamoDB Query', ->
 
     it 'should not mark the constructed Model as editted', (done) ->
       query = new DynamoDbQuery ValidModel
-      query.find new ValidConnection(response), (error, items) ->
+      query.find (error, items) ->
         should.not.exist error
         should.exist items
         isEditted = items[0].isEditted()
@@ -287,7 +293,7 @@ describe 'DynamoDB Query', ->
         done()
 
     it 'should catch and pass errors in the query operation', (done) ->
-      query = new DynamoDbQuery ValidModel
-      query.find new ErrorConnection(), (error) ->
+      query = new DynamoDbQuery ErrorModel
+      query.find (error) ->
         should.exist error
         done()

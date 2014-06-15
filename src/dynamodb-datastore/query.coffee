@@ -79,10 +79,10 @@ class DynamoDbQuery
     return
 
   # Performs the query and retrieves an array of items
-  # @param {object} connection Active connection to a DynamoDB instance
   # @param {Function} callback Function to handle items or error
-  find: (connection, callback) ->
+  find: (callback) ->
     Model = @_Model
+    connection = Model._dynamodbConnection
     connection.query @getQuery(), (error, data) ->
       if error
         return callback error
