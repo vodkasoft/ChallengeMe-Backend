@@ -53,4 +53,4 @@ application.use (error, request, response, next) ->
   response.send 500, {error: {status: 500, message: 'Internal error'}}
 
 # Create server and start listening
-http.createServer(application).listen 3000
+http.createServer(application).listen 80
