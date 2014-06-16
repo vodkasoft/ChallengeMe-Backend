@@ -20,12 +20,12 @@ class DataAccess
   # @param {string} id Unique id for the user
   # @param {Function} callback Function to handler user or error
   getOrCreateUser: (id, callback) ->
-    @getUser id, (error, user) ->
+    @getUser id, (error, user) =>
       if error
         return callback error
       if user
         return callback  null, user
-      createUser id, callback
+      @createUser id, callback
 
   # Gets the challenges a user has received
   # @param {string} id Unique id for the user

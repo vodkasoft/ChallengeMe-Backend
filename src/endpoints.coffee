@@ -77,10 +77,12 @@ configureRouter = (router, options) ->
   createUserAccessToken = (id, callback) ->
     dataAccess.getOrCreateUser id, (error, user) ->
       if error
+        console.log error.message
         return callback new Error 'Unable to generate access token'
       tokenData = {userId: id}
       tokenManager.createAccessToken tokenData, EXPIRATION, (error, token) ->
         if error
+          console.log error.message
           return callback new Error 'Unable to generate access token'
         callback null, token
 
