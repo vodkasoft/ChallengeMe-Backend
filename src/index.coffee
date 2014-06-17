@@ -2,6 +2,7 @@
 AWS = require 'aws-sdk'
 bodyParser = require 'body-parser'
 compression = require 'compression'
+cors = require 'cors'
 endpoints = require './endpoints'
 express = require 'express'
 http = require 'http'
@@ -13,6 +14,11 @@ FacebookAuthProvider = require './facebook-auth'
 
 # Application
 application = express()
+
+# Enable CORS
+application.use cors()
+
+# Disable powered by header
 application.disable 'x-powered-by'
 
 # Middleware
