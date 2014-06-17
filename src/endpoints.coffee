@@ -77,12 +77,10 @@ configureRouter = (router, options) ->
   createUserAccessToken = (id, callback) ->
     dataAccess.getOrCreateUser id, (error, user) ->
       if error
-        console.log error.message
         return callback new Error 'Unable to generate access token'
       tokenData = {userId: id}
       tokenManager.createAccessToken tokenData, EXPIRATION, (error, token) ->
         if error
-          console.log error.message
           return callback new Error 'Unable to generate access token'
         callback null, token
 
@@ -147,7 +145,7 @@ configureRouter = (router, options) ->
   # Authentication: User access token
   # Authorization: Owner (recipient)
   #
-  # Obtians the challenges that the user has received
+  # Obtains the challenges that the user has received
   #
   # URL parameters:
   #   id: Unique id for the user (accepts 'me' for the current user)
@@ -180,7 +178,7 @@ configureRouter = (router, options) ->
   # Authentication: User access token
   # Authorization: Owner (sender)
   #
-  # Obtians the challenges that the user has sent
+  # Obtains the challenges that the user has sent
   #
   # URL parameters:
   #   id: Unique id for the user (accepts 'me' for the current user)
@@ -213,7 +211,7 @@ configureRouter = (router, options) ->
   # Authentication: User access token
   # Authorization: Owner (sender or recipient)
   #
-  # Obtians the data for a challenge
+  # Obtains the data for a challenge
   #
   # URL parameters:
   #   id: Unique id for the challenge
