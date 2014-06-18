@@ -80,7 +80,7 @@ class DataAccess
     counter = challengeData.recipients.length
     savedError = null
     for recipient in challengeData.recipients
-      id = uuid.v4()
+      id = uuid.v4().replace /-/g, ''
       challenge.set 'Id', id
       challenge.set 'Recipient', recipient
       challenge.save (error) ->
@@ -99,11 +99,33 @@ class DataAccess
   createUser: (id, callback) ->
     user = new @Models.User {Id: id}
     user.set 'Wins', 0
-    user.set 'Loses', 0
+    user.set 'Losses', 0
     user.save (error) ->
       if error
         return callback error
       return callback null, user
+
+  # Increments the number of wins for a user by one
+  # @param {string} id Unique id for the user
+  # @param {Function} callback Function to handler error
+  incrementUserWins: (id, callback) ->
+    @getUser id, (error, user) ->
+      if error
+        return callback error
+      wins = user.get 'Wins'
+      user.set 'Wins', ++wins
+      user.save callback
+
+  # Increments the number of losses for a user by one
+  # @param {string} id Unique id for the user
+  # @param {Function} callback Function to handler erro
+  incrementUserLosses: (id, callback) ->
+    @getUser id, (error, user) ->
+      if error
+        return callback error
+      losses = user.get 'Losses'
+      user.set 'Losses', ++losses
+      user.save callback
 
 # Exports
 module.exports = DataAccess
