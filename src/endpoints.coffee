@@ -132,12 +132,12 @@ configureRouter = (router, options) ->
       if error
         return sendError response, 500, 'Unable to retrieve user profile'
       if not user
-        return sendError response, 400, 'User does not exists'
+        return sendError response, 400, 'User does not exist'
       responseData =
         user:
           id: user.get 'Id'
           wins: user.get 'Wins'
-          loses: user.get 'Loses'
+          losses: user.get 'Losses'
       response.send 200, responseData
 
   # URL: /users/{id}/challenges/received
@@ -162,7 +162,7 @@ configureRouter = (router, options) ->
     limit = request.query.limit || LIMIT
     dataAccess.getReceivedChallenges userId, limit, (error, challenges) ->
       if error
-        return sendError response, 500, 'Unable to retrieve'
+        return sendError response, 500, 'Unable to retrieve challenges'
       responseChallenges = for challenge in challenges
         id: challenge.get 'Id'
         sender: challenge.get 'Sender'
@@ -195,7 +195,7 @@ configureRouter = (router, options) ->
     limit = request.query.limit || LIMIT
     dataAccess.getSentChallenges userId, limit, (error, challenges) ->
       if error
-        return sendError response, 500, 'Unable to retrieve'
+        return sendError response, 500, 'Unable to retrieve challenges'
       responseChallenges = for challenge in challenges
         id: challenge.get 'Id'
         recipient: challenge.get 'Recipient'
@@ -224,7 +224,7 @@ configureRouter = (router, options) ->
       if error
         return sendError response, 500, 'Unable to retrieve challenge'
       if not challenge
-        return sendError response, 400, 'Challenge does not exists'
+        return sendError response, 400, 'Challenge does not exist'
       senderId = challenge.get 'Sender'
       recipientId = challenge.get 'Recipient'
       if userId not in [senderId, recipientId]
@@ -258,13 +258,22 @@ configureRouter = (router, options) ->
       if error
         return sendError response, 500, 'Unable to retrieve challenge'
       if not challenge
-        return sendError response, 400, 'Challenge does not exists'
+        return sendError response, 400, 'Challenge does not exist'
       recipientId = challenge.get 'Recipient'
       if recipientId isnt userId
         return sendError response, 403, 'Cannot access challenge'
       challenge.update {State: newState}, (error) ->
         if error
           return sendError response, 500, 'Unable to update state'
+        updateStatsCallback = (error) ->
+          if error
+            return sendError response, 500, 'Error updating user stats'
+          response.status 204
+          response.end()
+        if newState is 'Won'
+          return dataAccess.incrementUserWins recipientId, updateStatsCallback
+        if newState is 'Lost'
+          return dataAccess.incrementUserLosses recipientId, updateStatsCallback
         response.status 204
         response.end()
 
