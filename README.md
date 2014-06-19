@@ -36,6 +36,65 @@ The following tasks can be run from Gulp
 - *watch*: Sets a watch task to lint and compile CoffeeScript files
 - *default*: Lints and compiles the CoffeeScript files
 
+## API Reference
+
+### Data Types
+
+#### Client
+
+A client is an application that has been registered with the backend.
+To authenticate the client a valid id and secret must be provided.
+
+##### Attributes
+
+| Name        | Type      | Description                                        |
+|:------------|-----------|:---------------------------------------------------|
+| id          | string    | String that uniquely identifies the application    |
+| secret      | string    | Secret used to authenticate the client             |
+
+#### User
+
+A user is a person who uses a client application and has registered an third
+party account with the backend *(Currently Facebook using an OAuth2 access
+token)*.
+
+##### Attributes
+
+| Name        | Type      | Description                                        |
+|:------------|-----------|:---------------------------------------------------|
+| id          | string    | Unique identification provided by a third party    |
+| wins        | number    | Total number of challenges the user has won        |
+| losses      | number    | Total number of challenges the user has lost       |
+
+#### Challenge
+
+Challenges are managed like emails. Each challenge has a recipient and a sender,
+but instead of a subject and a body it has data, a solution and a type.
+
+##### Attributes
+
+| Name        | Type      | Description                                        |
+|:------------|-----------|:---------------------------------------------------|
+| id          | string    | String that uniquely identifies the challenge      |
+| sender      | string    | Id of the user who sent the challenge              |
+| recipient   | string    | Id of the user who received the challenge (owner)  |
+| type        | string    | Category for the challenge                         |
+| data        | string    | JSON representation of the challenge's definition  |
+| solution    | string    | JSON representation of the challenge's solution    |
+
+### Endpoints
+
+| Resource URI                          | Description                                   |
+|:--------------------------------------|:----------------------------------------------|
+| POST /login/access_token              | Create an access token for a user             |
+| GET /users/*{id}*/profile             | Obtain the profile information for a user     |
+| GET /users/*{id}*/challenges/received | Obtain the challenges that the user has sent  |
+| GET /users/*{id}*/challenges/sent     | Obtain the profile information for a user     |
+| GET /challenges/*{id}*                | Obtain the data for a challenge               |
+| PUT /challenges/*{id}*/state          | Update the state of a challenge               |
+| POST /challenges                      | Create a challenge                            |
+
+
 ## Authors
 
 [Albin Arias](https://github.com/alariju)<br>
